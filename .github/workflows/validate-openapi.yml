@@ -30,4 +30,4 @@ jobs:
 
       # Paso 4: Validar el archivo OpenAPI
       - name: Validar el archivo OpenAPI
-        run: swagger-cli validate ./ruta/al/archivo/openapi.yaml
+        run: swagger-cli validate ./api/contract-bs.yaml
