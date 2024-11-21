@@ -1064,16 +1064,16 @@ components:
 #     in: header
 security:
   - bearerAuth: []
-#  apiKeyHeader: []
+
 info:
-  title: API BS PAPI Customer Product And Service Eligibility
+  # title: API BS PAPI Customer Product And Service Eligibility
   description: Este Dominio de Servicio mantiene una lista de productos y servicios para los cuales un cliente es elegible.
   contact:
     name: BIAN
     url: 'https://bian.org'
   version: 1.0.0
 externalDocs:
-  url: 'https://github.com/BCP-APIs/business-papi-customer-product-and-service-eligibility'
+  # url: 'https://github.com/BCP-APIs/business-papi-customer-product-and-service-eligibility'
   description: Más información
 servers:
   - url: /affiliation/customer-product-service/v1
