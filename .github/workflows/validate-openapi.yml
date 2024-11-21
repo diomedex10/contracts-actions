@@ -1,0 +1,33 @@
+name: Validación de OpenAPI
+
+# Se ejecuta en eventos de push y pull_request hacia la rama main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-openapi:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Checkout del código del repositorio
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3
+
+      # Paso 2: Configurar Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Puedes ajustar la versión según tus necesidades
+
+      # Paso 3: Instalar swagger-cli globalmente
+      - name: Instalar swagger-cli
+        run: npm install -g swagger-cli
+
+      # Paso 4: Validar el archivo OpenAPI
+      - name: Validar el archivo OpenAPI
+        run: swagger-cli validate ./ruta/al/archivo/openapi.yaml
