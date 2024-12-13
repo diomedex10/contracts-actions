@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: API UX PAPI Contract Catalog V1
   description: Permite consultar y administrar el catálogo de contratos openAPI y asyncAPI
-  version:1.0.13
+  version: 1.0.13
 servers:
   - url: /channel/papi/v1
 x-bcp-api-type: UX
@@ -91,6 +91,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiException'
+        '400':
+          description: Error al actualizar el evento del contrato.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'        
         '401':
           description: No esta autorizado correctamente para usar esta recurso.
           content:
