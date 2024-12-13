@@ -1,0 +1,14 @@
+services:
+  openapi-diff:
+    image: openapitools/openapi-diff:latest
+    container_name: openapi-diff
+    volumes:
+      - ./api:/specs:ro
+      - ./output:/output
+    command: [
+      #"--fail-on-incompatible",
+     # "--json", "/output/diff.json",
+      "--state",
+      "/specs/contract-bs-old.yaml",
+      "/specs/contract-bs.yaml"
+    ]

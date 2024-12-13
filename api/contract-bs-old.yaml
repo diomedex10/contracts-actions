@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: API UX PAPI Contract Catalog V1
   description: Permite consultar y administrar el catálogo de contratos openAPI y asyncAPI
-  version: 1.0.13
+  version: 1.0.1
 servers:
   - url: /channel/papi/v1
 x-bcp-api-type: UX
@@ -17,7 +17,7 @@ paths:
   '/contracts/{contractID}/environments':
     patch:
       operationId: updateEnvironment
-      summary: 'MMM Permite actualizar el entono donde se encuentra el API (en el APIM), llamese DESA, CERT y PROD.'
+      summary: 'Permite actualizar el entono donde se encuentra el API (en el APIM), llamese DESA, CERT y PROD.'
       description: |-
         ### Acerca de la funcionalidad expuesta   
         Permite actualizar el entono donde se encuentra el API (en el APIM), llamese DESA, CERT y PROD
@@ -124,7 +124,7 @@ components:
       type: object
       properties:
         apimResource:
-          pattern: '^(apimeu2apig|apimeu2opbk)(d|c|p)\d{2}$MMM'
+          pattern: '^(apimeu2apig|apimeu2opbk)(d|c|p)\d{2}$'
           type: string
           description: recurso en donde se realizó el cambio de estado
           example: apimeu2apigd01
@@ -208,7 +208,7 @@ components:
       schema:
         maxLength: 350
         minLength: 1
-        pattern: '^[a-z0-9-]+$MM'
+        pattern: '^[a-z0-9-]+$'
         type: string
   securitySchemes:
     bearerAuth:
