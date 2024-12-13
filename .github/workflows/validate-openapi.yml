@@ -7,11 +7,7 @@ on:
       - main
     paths:
       - 'api/contract-bs.yaml'
-  push:
-    branches:
-      - main
-    paths:
-      - 'api/contract-bs.yaml'    
+   
 
 jobs:
   validate-fix-changes:
