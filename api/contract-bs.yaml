@@ -15,7 +15,7 @@ tags:
     description: Consultation Controller
 paths:
   /contracts/{contractID}/environments:
-    patch:
+    patche:
       operationId: updateEnvironment
       summary: 'MMM Permite actualizar el entono donde se encuentra el API (en el APIM), llamese DESA, CERT y PROD.'
       description: |-
@@ -91,12 +91,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiException'     
-        '400':
-          description: Error al actualizar el evento del contrato.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiException'          
+              
         '401':
           description: No esta autorizado correctamente para usar esta recurso.
           content:
