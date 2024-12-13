@@ -15,7 +15,7 @@ tags:
     description: Consultation Controller
 paths:
   /contracts/{contractID}/environments:
-    patchrrr:
+    patchrrr44ss:
       operationId: updateEnvironment
       summary: 'MMM Permite actualizar el entono donde se encuentra el API (en el APIM), llamese DESA, CERT y PROD.'
       description: |-
