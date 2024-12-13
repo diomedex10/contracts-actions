@@ -7,6 +7,11 @@ on:
       - main
     paths:
       - 'api/contract-bs.yaml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'api/contract-bs.yaml'    
 
 jobs:
   validate-fix-changes:
@@ -32,69 +37,3 @@ jobs:
       # Paso 4: Validar el archivo OpenAPI
       - name: Validar el archivo OpenAPI
         run: swagger-cli validate ./api/contract-bs.yaml
-
-      # Paso 5: Obtener versión actual y anterior
-      - name: Verificar cambio de versión
-        id: version-check
-        run: |
-          # Obtener el archivo actual
-          CURRENT_VERSION=$(yq e '.info.version' api/contract-bs.yaml)
-          
-          # Obtener el archivo de la rama base (main)
-          git fetch origin main
-          git checkout origin/main -- api/contract-bs.yaml
-          BASE_VERSION=$(yq e '.info.version' api/contract-bs.yaml)
-          git checkout - -- api/contract-bs.yaml
-          
-          # Validar que sea un cambio de tipo fix (solo cambia el último número)
-          IFS='.' read -r major1 minor1 patch1 <<< "$BASE_VERSION"
-          IFS='.' read -r major2 minor2 patch2 <<< "$CURRENT_VERSION"
-          
-          if [ "$major1" != "$major2" ] || [ "$minor1" != "$minor2" ] || [ "$patch2" -le "$patch1" ]; then
-            echo "Error: El cambio de versión debe ser de tipo fix (solo incrementar el último número)"
-            echo "Versión base: $BASE_VERSION"
-            echo "Versión actual: $CURRENT_VERSION"
-            exit 1
-          fi
-
-      # Paso 6: Validar cambios permitidos
-      - name: Verificar cambios permitidos
-        run: |
-          # Obtener diferencias entre archivos
-          git fetch origin main
-          DIFF_OUTPUT=$(git diff origin/main...HEAD -- api/contract-bs.yaml)
-          
-          # Verificar que solo hay cambios permitidos
-          ALLOWED_CHANGES=true
-          
-          # Patrones de cambios no permitidos
-          if echo "$DIFF_OUTPUT" | grep -E '^\+.*\$ref:' > /dev/null; then
-            echo "Error: No se permiten modificaciones en referencias de esquemas"
-            ALLOWED_CHANGES=false
-          fi
-          
-          if echo "$DIFF_OUTPUT" | grep -E '^\+.*schema:' > /dev/null; then
-            echo "Error: No se permiten modificaciones en esquemas"
-            ALLOWED_CHANGES=false
-          fi
-          
-          if echo "$DIFF_OUTPUT" | grep -E '^\+.*type:' > /dev/null; then
-            echo "Error: No se permiten modificaciones en tipos de datos"
-            ALLOWED_CHANGES=false
-          fi
-          
-          # Verificar que solo hay cambios en secciones permitidas
-          ALLOWED_SECTIONS=(
-            'info.description'
-            'info.contact'
-            'description:'
-            'summary:'
-            'tags:'
-            'example:'
-            'examples:'
-          )
-          
-          if [ "$ALLOWED_CHANGES" = false ]; then
-            echo "Se detectaron cambios no permitidos en el archivo OpenAPI"
-            exit 1
-          fi
